@@ -1,0 +1,10 @@
+Eric Cai, Anant Krishna
+Lab Questions
+
+1. Based on the plot of expectation value in z, it can be vaguely determined whether the net rotation is slightly over or under rotated based on whether the noisy plot overshoots or undershoots the nominal plot. Additionally, any divergence is small at first and gets more visible in later pulses. Specifically in our case, the most divergence occurs when the expectation value goes to 0, while at any expectation value |sigma_z|>0.05 both the nominal and noisy graphs cleanly match with each other.
+
+2. The trace distance increases in a very irregular fashion. There is likely an underlying broad structure to it, but further trials and experiments would be necessary to determine exactly how so. One conclusion we can make though is that the trace distance can decrease. For unitary evolution, even with jitter this makes sense as the jitter introduces an uncertainty in the accuracy of results. Thus, the trace distance could both increase and decrease by some small amount correlating with the jitter. However, over the long run this follows many well explored statstics ideas, such as the fact that although the mean of trace location is always 0, the standard deviation is increasing after every pulse. We are looking at the trace DISTANCE, which is correlated with standard deviation as distance does not take into account direction.
+
+3. The system is more sensitive to jitter later on in the pulse sequence. This happens due to the aforementioned reasons.
+
+4. A series of imperfect pulses has a direct consequence, resulting in a series of imperfect gates in a quantum circuit. This happens because the jitter in an imperfect pulse results in a deviation from the expected answer. When enough pulses are applied, the resulting outcome reaches a point where it has too much deviation to be able to tell the true answer. This was shown through this experiment, how, although irregularly, trace distance increases over multiple pulses. Thus quantum circuits have a limit to how many pulses they can handle, a certain depth which is a result of the jitter.
