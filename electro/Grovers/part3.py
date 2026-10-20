@@ -114,5 +114,37 @@ def diffuser_gate(n_comp: int):
 
     return qc_diff.to_gate(label="Diffuser")
 
-fig = qc.draw("mpl")
+
+n_comp = 6
+n_anc  = 14
+n_total = n_comp + n_anc
+
+qc = QuantumCircuit(n_total, n_comp)
+
+comp = list(range(n_comp))
+anc  = list(range(n_comp, n_total))
+
+O = oracle_gate(n_comp, n_anc)
+D = diffuser_gate(n_comp)
+
+backend = Aer.get_backend("aer_simulator")
+shots = 4000
+
+# Perform Hadamard Transform
+qc.h(comp)
+
+# Add oracle and diffuser to circuit
+qc.append(O, comp + anc)   # oracle needs all qubits it was built for
+qc.append(D, comp)         # diffuser only on computational register
+
+# measure computational qubits only
+qc.measure(comp, list(range(n_comp)))
+
+# because we made custom gates we need to transpile them for Aer
+qc_run = transpile(qc, backend, optimization_level=0)
+
+result = backend.run(qc_run, shots=shots).result()
+counts = result.get_counts()
+
+fig = plot_histogram(counts)
 plt.show()

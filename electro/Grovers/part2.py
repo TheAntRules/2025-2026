@@ -18,7 +18,38 @@ qc.barrier()      #this just puts a vertical line in the circuit to separate the
 #*********************
 # You add in the ccz gate based phase oracle
 #*********************
-qc.ccz(0, 1, 2)   # controls = 0,1  target = 2
+
+def select111():
+    qc.ccz(0, 1, 2)   # controls = 0,1  target = 2
+
+def select100():
+    qc.x(0)
+    qc.x(1)
+    qc.ccz(0,1,2)
+    qc.x(0)
+    qc.x(1)
+
+def select101():
+    qc.x(1)
+    qc.ccz(0,1,2)
+    qc.x(1)
+
+def select110():
+    qc.x(0)
+    qc.ccz(0,1,2)
+    qc.x(0)
+
+def select3rd():
+    select110()
+    select101()
+    qc.x(2)
+    qc.ccz(0,1,2)
+    qc.x(2)
+
+select3rd()
+
+
+
 
 qc.barrier()
 #*********************
